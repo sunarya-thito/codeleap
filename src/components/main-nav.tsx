@@ -19,32 +19,30 @@ export function MainNav() {
         Home
       </Link>
       <Link
-        href="/you"
+        href="/dashboard"
         className={cn(
           "text-sm font-medium transition-colors hover:text-primary",
-          pathname.startsWith("/you") ? "text-primary" : "text-muted-foreground"
+          pathname.startsWith("/dashboard")
+            ? "text-primary"
+            : "text-muted-foreground"
         )}
       >
         Dashboard
       </Link>
       <Link
-        href="/roadmap"
+        href="#"
         className={cn(
           "text-sm font-medium transition-colors hover:text-primary",
-          pathname.startsWith("/roadmap")
-            ? "text-primary"
-            : "text-muted-foreground"
+          pathname.startsWith("#") ? "text-primary" : "text-muted-foreground"
         )}
       >
         Roadmaps
       </Link>
       <Link
-        href="/playground"
+        href="#"
         className={cn(
           "text-sm font-medium transition-colors hover:text-primary",
-          pathname.startsWith("/playground")
-            ? "text-primary"
-            : "text-muted-foreground"
+          pathname.startsWith("#") ? "text-primary" : "text-muted-foreground"
         )}
       >
         Playground

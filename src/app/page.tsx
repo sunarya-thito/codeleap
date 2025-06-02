@@ -37,12 +37,12 @@ export default function LandingPage() {
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Button size="lg" asChild>
-                  <Link href="/you">
+                  <Link href="/dashboard">
                     Start Learning Now <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link href="/roadmap">Explore Learning Paths</Link>
+                  <Link href="/#">Explore Learning Paths</Link>
                 </Button>
               </div>
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
