@@ -34,7 +34,7 @@ export function Layout({
           </div>
         </div>
       </header>
-      <main className="flex-1 mx-auto">
+      <main className="flex-1">
         {showBackButton && (
           <div className="container py-4 mx-auto">
             <BackButton fallbackHref={backButtonFallback} />
