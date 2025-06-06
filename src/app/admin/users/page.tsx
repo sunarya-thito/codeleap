@@ -35,7 +35,7 @@ export default function UsersPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center">
+        <div className="container flex h-16 items-center mx-auto">
           <div className="flex items-center gap-2 font-bold text-xl mr-6">
             <Code className="h-6 w-6 text-green-600" />
             <span>CodeLeaf Admin</span>
@@ -47,7 +47,7 @@ export default function UsersPage() {
         </div>
       </header>
 
-      <main className="flex-1 container py-6">
+      <main className="flex-1 container py-6 mx-auto">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col md:flex-row justify-between gap-4">
             <div>
