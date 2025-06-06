@@ -760,7 +760,6 @@ POST /api/v1/assessments
 ```
 
 ### Read Assessment
-
 #### Path
 
 ```
