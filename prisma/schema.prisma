@@ -1,154 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
-    provider = "prisma-client-js"
-    output   = "app/generated/prisma/client"
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id           String         @id @default(uuid())
-    email        String         @unique
-    name         String
-    roleType     RoleType
-    comments     Comment[]
-    feedbacks    Feedback[]
-    certificates Certificate[]
-    progress     UserProgress[]
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @updatedAt
-    Course       Course[]
+  id           String         @id @default(uuid())
+  email        String         @unique
+  name         String
+  roleType     RoleType
+  comments     Comment[]
+  feedbacks    Feedback[]
+  certificates Certificate[]
+  progress     UserProgress[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Course       Course[]
 }
 
 enum RoleType {
-    ADMIN
-    INSTRUCTOR
-    STUDENT
+  ADMIN
+  INSTRUCTOR
+  STUDENT
 }
 
 model Course {
-    id           String          @id @default(uuid())
-    title        String
-    description  String
-    thumbnailUrl String
-    instructor   User            @relation(fields: [instructorId], references: [id])
-    instructorId String
-    sections     CourseSection[]
-    comments     Comment[]
-    certificates Certificate[]
-    createdAt    DateTime        @default(now())
-    updatedAt    DateTime        @updatedAt
+  id           String          @id @default(uuid())
+  title        String
+  description  String
+  thumbnailUrl String
+  instructor   User            @relation(fields: [instructorId], references: [id])
+  instructorId String
+  sections     CourseSection[]
+  comments     Comment[]
+  certificates Certificate[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
 
-    @@index([title, description])
+  @@index([title, description])
 }
 
 model CourseSection {
-    id          String       @id @default(uuid())
-    course      Course       @relation(fields: [courseId], references: [id])
-    courseId    String
-    title       String
-    position    Int
-    articles    Article[]
-    assessments Assessment[]
-    createdAt   DateTime     @default(now())
-    updatedAt   DateTime     @updatedAt
+  id          String       @id @default(uuid())
+  course      Course       @relation(fields: [courseId], references: [id])
+  courseId    String
+  title       String
+  position    Int
+  articles    Article[]
+  assessments Assessment[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
-    @@index([title])
+  @@index([title])
 }
 
 model Article {
-    id           String         @id @default(uuid())
-    title        String
-    s3Url        String
-    section      CourseSection  @relation(fields: [sectionId], references: [id])
-    sectionId    String
-    feedbacks    Feedback[]
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @updatedAt
-    UserProgress UserProgress[]
+  id           String         @id @default(uuid())
+  title        String
+  s3Url        String
+  section      CourseSection  @relation(fields: [sectionId], references: [id])
+  sectionId    String
+  feedbacks    Feedback[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  UserProgress UserProgress[]
 }
 
 model Feedback {
-    id        String       @id @default(uuid())
-    user      User         @relation(fields: [userId], references: [id])
-    userId    String
-    article   Article      @relation(fields: [articleId], references: [id])
-    articleId String
-    type      FeedbackType
-    createdAt DateTime     @default(now())
+  id        String       @id @default(uuid())
+  user      User         @relation(fields: [userId], references: [id])
+  userId    String
+  article   Article      @relation(fields: [articleId], references: [id])
+  articleId String
+  type      FeedbackType
+  createdAt DateTime     @default(now())
 }
 
 enum FeedbackType {
-    THUMBS_UP
-    THUMBS_DOWN
+  THUMBS_UP
+  THUMBS_DOWN
 }
 
 model Assessment {
-    id           String         @id @default(uuid())
-    title        String
-    section      CourseSection  @relation(fields: [sectionId], references: [id])
-    sectionId    String
-    questions    Question[]
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @updatedAt
-    UserProgress UserProgress[]
+  id           String         @id @default(uuid())
+  title        String
+  section      CourseSection  @relation(fields: [sectionId], references: [id])
+  sectionId    String
+  questions    Question[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  UserProgress UserProgress[]
 }
 
 model Question {
-    id           String     @id @default(uuid())
-    assessment   Assessment @relation(fields: [assessmentId], references: [id])
-    assessmentId String
-    text         String
-    answers      Answer[]
-    createdAt    DateTime   @default(now())
-    updatedAt    DateTime   @updatedAt
+  id           String     @id @default(uuid())
+  assessment   Assessment @relation(fields: [assessmentId], references: [id])
+  assessmentId String
+  text         String
+  answers      Answer[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
 
 model Answer {
-    id         String   @id @default(uuid())
-    question   Question @relation(fields: [questionId], references: [id])
-    questionId String
-    text       String
-    isCorrect  Boolean
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+  id         String   @id @default(uuid())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  text       String
+  isCorrect  Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Comment {
-    id        String    @id @default(uuid())
-    user      User      @relation(fields: [userId], references: [id])
-    userId    String
-    course    Course?   @relation(fields: [courseId], references: [id])
-    courseId  String?
-    parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
-    parentId  String?
-    replies   Comment[] @relation("CommentReplies")
-    content   String
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @updatedAt
+  id        String    @id @default(uuid())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  course    Course?   @relation(fields: [courseId], references: [id])
+  courseId  String?
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  parentId  String?
+  replies   Comment[] @relation("CommentReplies")
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Certificate {
-    id           String   @id @default(uuid())
-    user         User     @relation(fields: [userId], references: [id])
-    userId       String
-    course       Course   @relation(fields: [courseId], references: [id])
-    courseId     String
-    issuedAt     DateTime @default(now())
-    invalidAfter DateTime
+  id           String   @id @default(uuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  course       Course   @relation(fields: [courseId], references: [id])
+  courseId     String
+  issuedAt     DateTime @default(now())
+  invalidAfter DateTime
 
-    @@index([courseId])
+  @@index([courseId])
 }
 
 model UserProgress {
-    id           String      @id @default(uuid())
-    user         User        @relation(fields: [userId], references: [id])
-    userId       String
-    article      Article?    @relation(fields: [articleId], references: [id])
-    articleId    String?
-    assessment   Assessment? @relation(fields: [assessmentId], references: [id])
-    assessmentId String?
-    completedAt  DateTime?
+  id           String      @id @default(uuid())
+  user         User        @relation(fields: [userId], references: [id])
+  userId       String
+  article      Article?    @relation(fields: [articleId], references: [id])
+  articleId    String?
+  assessment   Assessment? @relation(fields: [assessmentId], references: [id])
+  assessmentId String?
+  completedAt  DateTime?
 }
