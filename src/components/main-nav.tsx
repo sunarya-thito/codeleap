@@ -51,6 +51,17 @@ export function MainNav() {
       >
         Assessments
       </Link>
+      <Link
+        href="/articles"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname.startsWith("/articles")
+            ? "text-primary"
+            : "text-muted-foreground"
+        )}
+      >
+        Articles
+      </Link>
     </nav>
   );
 }
