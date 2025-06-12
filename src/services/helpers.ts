@@ -1,5 +1,6 @@
 import type { Course, CourseSection, Article, Assessment, UserProgress, User } from '@prisma/client';
 import type { CourseContent, UserData, UserEnrollmentData, ContentType, AdjacentLessonInfo, InstructorSummary, CourseLevel } from '../api_types_ts'; // Assuming types are in a relative path
+import prisma from '@/utils/prismaClient';
 
 /**
  * Calculates user progress for a course.

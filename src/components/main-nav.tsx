@@ -30,22 +30,26 @@ export function MainNav() {
         Dashboard
       </Link>
       <Link
-        href="#"
+        href="/courses"
         className={cn(
           "text-sm font-medium transition-colors hover:text-primary",
-          pathname.startsWith("#") ? "text-primary" : "text-muted-foreground"
+          pathname.startsWith("/courses")
+            ? "text-primary"
+            : "text-muted-foreground"
         )}
       >
-        Roadmaps
+        Courses
       </Link>
       <Link
-        href="#"
+        href="/assessments"
         className={cn(
           "text-sm font-medium transition-colors hover:text-primary",
-          pathname.startsWith("#") ? "text-primary" : "text-muted-foreground"
+          pathname.startsWith("/assessments")
+            ? "text-primary"
+            : "text-muted-foreground"
         )}
       >
-        Playground
+        Assessments
       </Link>
     </nav>
   );
