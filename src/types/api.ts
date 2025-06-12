@@ -13,8 +13,12 @@ export abstract class ApiRequest<TResponse> {
         if (DUMMY_MODE) {
             return this.fetchDummy();
         }
+        const backendUrl = process.env.BACKEND_URL;
+        if (!backendUrl) {
+            throw new Error('BACKEND_URL is not set');
+        }
         const method = this.getMethod();
-        const url = this.getUrl();
+        const url = `${backendUrl}${this.getUrl()}`;
         const body = this.getBody();
         const headers = this.getHeaders();
 
