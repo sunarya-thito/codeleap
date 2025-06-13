@@ -12,24 +12,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
-import { AuthDialog } from "@/components/auth-dialog";
 
 export function UserNav() {
   const router = useRouter();
 
   // This would be replaced with actual auth state
-  const isLoggedIn = false;
+  // const isLoggedIn = false;
 
-  if (!isLoggedIn) {
-    return (
-      <div className="flex items-center gap-4">
-        <AuthDialog />
-        <Button size="sm" onClick={() => router.push("/you")}>
-          Try for free
-        </Button>
-      </div>
-    );
-  }
+  // if (!isLoggedIn) {
+  //   return (
+  //     <div className="flex items-center gap-4">
+  //       <AuthDialog />
+  //       <Button size="sm" onClick={() => router.push("/you")}>
+  //         Try for free
+  //       </Button>
+  //     </div>
+  //   );
+  // }
 
   return (
     <DropdownMenu>
@@ -40,28 +39,28 @@ export function UserNav() {
               src="/placeholder.svg?height=32&width=32"
               alt="@username"
             />
-            <AvatarFallback>JD</AvatarFallback>
+            <AvatarFallback>SA</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">John Doe</p>
+            <p className="text-sm font-medium leading-none">Ilham Rafi</p>
             <p className="text-xs leading-none text-muted-foreground">
-              john.doe@example.com
+              ilham.rafi@example.com
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => router.push("/you")}>
+          <DropdownMenuItem onClick={() => router.push("/dashboard")}>
             Your Dashboard
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push("/you/profile")}>
+          <DropdownMenuItem onClick={() => router.push("/dashboard/profile")}>
             Profile
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => router.push("/you/settings")}>
+          <DropdownMenuItem onClick={() => router.push("/dashboard/settings")}>
             Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
