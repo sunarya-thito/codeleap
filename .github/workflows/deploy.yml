@@ -29,17 +29,17 @@ jobs:
     ### FRONTEND (SSR UI on VPC Public) ###
     - name: Build frontend image
       run: |
-        docker build -t ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend:${{ github.sha }} .
+        docker build -t ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend/frontend:${{ github.sha }} .
 
     - name: Push frontend image
       run: |
-        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend:${{ github.sha }}
+        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend/frontend:${{ github.sha }}
 
     - name: Deploy frontend
       uses: google-github-actions/deploy-cloudrun@v1
       with:
         service: frontend
-        image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend:${{ github.sha }}
+        image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend/frontend:${{ github.sha }}
         region: asia-southeast2
         allow_unauthenticated: true
         vpc_connector: vpc-public
@@ -55,17 +55,17 @@ jobs:
     ### BACKEND (API on VPC Private) ###
     - name: Build backend image
       run: |
-        docker build -t ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend:${{ github.sha }} .
+        docker build -t ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend/backend:${{ github.sha }} .
 
     - name: Push backend image
       run: |
-        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend:${{ github.sha }} .
+        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend/backend:${{ github.sha }} .
 
     - name: Deploy backend
       uses: google-github-actions/deploy-cloudrun@v1
       with:
         service: backend
-        image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend:${{ github.sha }}
+        image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend/backend:${{ github.sha }}
         region: ${{ secrets.GCP_LOCATION }}
         allow_unauthenticated: false
         ingress: internal
