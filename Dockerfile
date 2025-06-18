@@ -1,10 +1,9 @@
-FROM node:20
+FROM node:20-slim
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm install lightningcss-linux-x64-gnu
 RUN npm install
 RUN npm run build
 
