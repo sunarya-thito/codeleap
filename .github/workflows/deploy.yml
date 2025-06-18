@@ -25,17 +25,17 @@ jobs:
     ### FRONTEND (SSR UI on VPC Public) ###
     - name: Build frontend image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend .
+        docker build -t ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend .
 
     - name: Push frontend image
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend
+        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend
 
     - name: Deploy frontend
       uses: google-github-actions/deploy-cloudrun@v1
       with:
         service: frontend
-        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend
+        image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend
         region: asia-southeast2
         allow_unauthenticated: true
         vpc_connector: vpc-public
@@ -51,17 +51,17 @@ jobs:
     ### BACKEND (API on VPC Private) ###
     - name: Build backend image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend .
+        docker build -t ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend .
 
     - name: Push backend image
       run: |
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend
+        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend
 
     - name: Deploy backend
       uses: google-github-actions/deploy-cloudrun@v1
       with:
         service: backend
-        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend
+        image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend
         region: ${{ secrets.GCP_LOCATION }}
         allow_unauthenticated: false
         ingress: internal
