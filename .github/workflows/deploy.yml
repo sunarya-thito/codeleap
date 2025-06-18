@@ -41,7 +41,6 @@ jobs:
         service: frontend
         image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend/frontend:${{ github.sha }}
         region: ${{ secrets.GCP_LOCATION }}
-        allow_unauthenticated: true
         vpc_connector: vpc-public
         env_vars: |
           MODE=FRONTEND
@@ -67,7 +66,6 @@ jobs:
         service: backend
         image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend/backend:${{ github.sha }}
         region: ${{ secrets.GCP_LOCATION }}
-        allow_unauthenticated: false
         ingress: internal
         vpc_connector: vpc-private
         env_vars: |
