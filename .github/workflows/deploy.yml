@@ -22,6 +22,10 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    - name: Configure Docker
+      run: |
+        gcloud auth configure-docker ${{ secrets.GCP_LOCATION }}-docker.pkg.dev
+
     ### FRONTEND (SSR UI on VPC Public) ###
     - name: Build frontend image
       run: |
