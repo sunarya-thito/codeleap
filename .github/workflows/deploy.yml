@@ -40,7 +40,7 @@ jobs:
       with:
         service: frontend
         image: ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/frontend/frontend:${{ github.sha }}
-        region: asia-southeast2
+        region: ${{ secrets.GCP_LOCATION }}
         allow_unauthenticated: true
         vpc_connector: vpc-public
         env_vars: |
@@ -59,7 +59,7 @@ jobs:
 
     - name: Push backend image
       run: |
-        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend/backend:${{ github.sha }} .
+        docker push ${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/backend/backend:${{ github.sha }}
 
     - name: Deploy backend
       uses: google-github-actions/deploy-cloudrun@v1
