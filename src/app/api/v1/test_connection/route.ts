@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
         const tables = await prisma.$queryRaw<Array<{ tablename: string }>>`
             SELECT tablename FROM pg_tables WHERE schemaname = 'public'
         `;
-        const tableNames = tables.map(t => t.tablename);
+        const tableNames = tables.map((table: { tablename: string }) => table.tablename);
         return NextResponse.json({ tables: tableNames });
     } catch (error) {
         return NextResponse.json({ error: 'Database connection failed', details: String(error) }, { status: 500 });
