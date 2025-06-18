@@ -49,8 +49,8 @@ jobs:
           DATABASE_URL_WITH_SCHEMA=${{ secrets.DATABASE_URL_WITH_SCHEMA }}
           FRONTEND_URL=https://codeleap.sunaryathito.space
           BACKEND_URL=https://backendcodeleap.sunaryathito.space
-          BUCKET_SERTIFIKAT=${{ secrets.BUCKET_SERTIFIKAT }}
-          BUCKET_MATERI=${{ secrets.BUCKET_MATERI }}
+          BUCKET_SERTIFIKAT=codeleap-sertifikat
+          BUCKET_MATERI=codeleap-materi
 
     ### BACKEND (API on VPC Private) ###
     - name: Build backend image
@@ -76,5 +76,5 @@ jobs:
           DATABASE_URL_WITH_SCHEMA=${{ secrets.DATABASE_URL_WITH_SCHEMA }}
           FRONTEND_URL=https://codeleap.sunaryathito.space
           BACKEND_URL=https://backendcodeleap.sunaryathito.space
-          BUCKET_SERTIFIKAT=${{ secrets.BUCKET_SERTIFIKAT }}
-          BUCKET_MATERI=${{ secrets.BUCKET_MATERI }}
+          BUCKET_SERTIFIKAT=codeleap-sertifikat
+          BUCKET_MATERI=codeleap-materi
