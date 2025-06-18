@@ -1,47 +1,76 @@
-name: Deploy Next.js to Cloud Run
+name: Deploy Frontend & Backend Split Mode
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   deploy:
-    name: Build & Deploy to Cloud Run
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v3
-
-    - name: Authenticate to Google Cloud
+    - name: Authenticate to GCP
       uses: google-github-actions/auth@v1
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: Set up gcloud CLI
+    - name: Setup gcloud CLI
       uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    - name: Configure Docker for GAR
-      run: gcloud auth configure-docker ${{ secrets.GCP_LOCATION }}-docker.pkg.dev
-
-    - name: Build and Push Docker image
+    ### FRONTEND (SSR UI on VPC Public) ###
+    - name: Build frontend image
       run: |
-        IMAGE_URI="${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-images/codeleap:latest"
-        docker build -t "$IMAGE_URI" .
-        docker push "$IMAGE_URI"
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend .
 
-    - name: Deploy to Cloud Run
+    - name: Push frontend image
       run: |
-        gcloud run deploy codeleap  \
-          --image "${{ secrets.GCP_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-images/codeleap:latest" \
-          --platform managed \
-          --region ${{ secrets.GCP_LOCATION }} \
-          --port 3000 \
-          --memory 512Mi \
-          --cpu 1 \
-          --max-instances 1 \
-          --project ${{ secrets.GCP_PROJECT_ID  }} \
-          --service-account ${{ secrets.GCP_PROJECT_SA_NAME }} \
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend
+
+    - name: Deploy frontend
+      uses: google-github-actions/deploy-cloudrun@v1
+      with:
+        service: frontend
+        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/frontend
+        region: asia-southeast2
+        allow_unauthenticated: true
+        vpc_connector: vpc-public
+        env_vars: |
+          MODE=FRONTEND
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          DATABASE_URL_WITH_SCHEMA=${{ secrets.DATABASE_URL_WITH_SCHEMA }}
+          FRONTEND_URL=https://codeleap.sunaryathito.space
+          BACKEND_URL=https://backendcodeleap.sunaryathito.space
+          BUCKET_SERTIFIKAT=${{ secrets.BUCKET_SERTIFIKAT }}
+          BUCKET_MATERI=${{ secrets.BUCKET_MATERI }}
+
+    ### BACKEND (API on VPC Private) ###
+    - name: Build backend image
+      run: |
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend .
+
+    - name: Push backend image
+      run: |
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend
+
+    - name: Deploy backend
+      uses: google-github-actions/deploy-cloudrun@v1
+      with:
+        service: backend
+        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend
+        region: ${{ secrets.GCP_LOCATION }}
+        allow_unauthenticated: false
+        ingress: internal
+        vpc_connector: vpc-private
+        env_vars: |
+          MODE=BACKEND
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          DATABASE_URL_WITH_SCHEMA=${{ secrets.DATABASE_URL_WITH_SCHEMA }}
+          FRONTEND_URL=https://codeleap.sunaryathito.space
+          BACKEND_URL=https://backendcodeleap.sunaryathito.space
+          BUCKET_SERTIFIKAT=${{ secrets.BUCKET_SERTIFIKAT }}
+          BUCKET_MATERI=${{ secrets.BUCKET_MATERI }}
