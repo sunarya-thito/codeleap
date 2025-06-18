@@ -22,14 +22,14 @@ import {
 import { MainNav } from "@/components/main-nav";
 import { UserNav } from "@/components/user-nav";
 
-export default function AssessmentResultsPage({
+export default async function AssessmentResultsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   // Mock results data - in a real app, this would be fetched based on the assessment ID
   const results = {
-    assessmentId: params.id,
+    assessmentId: (await params).id,
     title: "JavaScript Fundamentals",
     score: 85,
     correctAnswers: 17,
@@ -103,8 +103,8 @@ export default function AssessmentResultsPage({
                   results.score >= 80
                     ? "default"
                     : results.score >= 60
-                    ? "secondary"
-                    : "destructive"
+                      ? "secondary"
+                      : "destructive"
                 }
               >
                 {results.score}%
@@ -137,12 +137,12 @@ export default function AssessmentResultsPage({
                     {results.score >= 90
                       ? "Excellent"
                       : results.score >= 80
-                      ? "Great"
-                      : results.score >= 70
-                      ? "Good"
-                      : results.score >= 60
-                      ? "Fair"
-                      : "Needs Improvement"}
+                        ? "Great"
+                        : results.score >= 70
+                          ? "Good"
+                          : results.score >= 60
+                            ? "Fair"
+                            : "Needs Improvement"}
                   </div>
                 </div>
               </div>

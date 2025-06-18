@@ -21,7 +21,7 @@ import { MainNav } from "@/components/main-nav";
 import { UserNav } from "@/components/user-nav";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function AssessmentPage({ params }: { params: { id: string } }) {
+export default async function AssessmentPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<
@@ -30,9 +30,11 @@ export default function AssessmentPage({ params }: { params: { id: string } }) {
   const [timeRemaining, setTimeRemaining] = useState("28:45");
   const [activeTab, setActiveTab] = useState<string>("questions");
 
+  let id = (await params).id;
+
   // Mock assessment data - in a real app, this would be fetched based on the ID
   const assessment = {
-    id: params.id,
+    id: id,
     title: "JavaScript Fundamentals",
     description: "Test your knowledge of JavaScript basics",
     duration: "30 min",
@@ -126,7 +128,7 @@ export default function AssessmentPage({ params }: { params: { id: string } }) {
 
   const handleSubmit = () => {
     // In a real app, this would submit the assessment and calculate the score
-    router.push(`/assessments/${params.id}/results`);
+    router.push(`/assessments/${id}/results`);
   };
 
   const currentQuestionData = assessment.questions[currentQuestion];

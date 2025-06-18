@@ -24,6 +24,8 @@ export default function ArticlePage() {
   const { articleId } = useParams();
   const article = mockArticles.find((a) => a.slug === articleId);
 
+
+
   if (!article) {
     return (
       <div className="container mx-auto py-16 text-center">

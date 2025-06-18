@@ -22,14 +22,14 @@ import {
 import { MainNav } from "@/components/main-nav";
 import { UserNav } from "@/components/user-nav";
 
-export default function CoursePage({
+export default async function CoursePage({
   params,
 }: {
-  params: { courseId: string };
+  params: Promise<{ courseId: string }>;
 }) {
   // Mock course data - in a real app, this would be fetched based on the course ID
   const course = {
-    id: params.courseId,
+    id: (await params).courseId,
     title: "HTML Fundamentals",
     description:
       "Learn the building blocks of web development with HTML5. This comprehensive course covers everything from basic HTML tags to semantic HTML and accessibility best practices.",
@@ -258,9 +258,8 @@ export default function CoursePage({
                 </Button>
                 <Button className="flex-1" asChild>
                   <Link
-                    href={`/courses/${course.id}/lessons/${
-                      nextLesson?.id || "lesson-1"
-                    }`}
+                    href={`/courses/${course.id}/lessons/${nextLesson?.id || "lesson-1"
+                      }`}
                   >
                     {course.progress > 0
                       ? "Continue Learning"
