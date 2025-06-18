@@ -31,7 +31,7 @@ export default function LearnPage() {
         <div className="container flex h-16 items-center mx-auto">
           <div className="flex items-center gap-2 font-bold text-xl mr-6">
             <Code className="h-6 w-6 text-green-600" />
-            <span>CodeLeaf</span>
+            <span>CodeLeap</span>
           </div>
           <MainNav />
           <div className="ml-auto flex items-center space-x-4">

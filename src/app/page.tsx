@@ -250,7 +250,7 @@ const myFuture = startCodingJourney();`}
               Success stories from our learners
             </h2>
             <p className="mt-4 text-muted-foreground md:text-xl">
-              See how CodeLeaf has helped people transform their careers and
+              See how CodeLeap has helped people transform their careers and
               lives
             </p>
           </div>
@@ -269,7 +269,7 @@ const myFuture = startCodingJourney();`}
                   </div>
                 </div>
                 <p className="text-muted-foreground">
-                  &quot;CodeLeaf helped me transition from teaching to tech. The
+                  &quot;CodeLeap helped me transition from teaching to tech. The
                   structured learning paths and practical projects gave me the
                   skills and confidence to land my first developer job within 6
                   months.&quot;
@@ -297,7 +297,7 @@ const myFuture = startCodingJourney();`}
                   </div>
                 </div>
                 <p className="text-muted-foreground">
-                  &quot;I tried several platforms before finding CodeLeaf. The
+                  &quot;I tried several platforms before finding CodeLeap. The
                   difference was night and day. The interactive lessons and
                   real-world projects helped me build a portfolio that impressed
                   employers.&quot;
@@ -326,7 +326,7 @@ const myFuture = startCodingJourney();`}
                 </div>
                 <p className="text-muted-foreground">
                   &quot;As a student, I needed affordable but comprehensive
-                  learning resources. CodeLeaf gave me exactly that, plus the
+                  learning resources. CodeLeap gave me exactly that, plus the
                   skills to start freelancing while still in school. I&apos;m
                   now earning while learning!&quot;
                 </p>
@@ -352,7 +352,7 @@ const myFuture = startCodingJourney();`}
             </h2>
             <p className="text-muted-foreground md:text-xl max-w-[800px]">
               Join thousands of learners who have successfully mastered coding
-              with CodeLeaf. Your future in tech starts today.
+              with CodeLeap. Your future in tech starts today.
             </p>
             <div className="flex flex-col sm:flex-row gap-2 mt-4">
               <Button size="lg" asChild>

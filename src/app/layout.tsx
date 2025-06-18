@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CodeLeaf - Learn to Code",
+  title: "CodeLeap - Learn to Code",
   description:
     "Master web development with structured learning paths, interactive assessments, and hands-on coding challenges.",
 };

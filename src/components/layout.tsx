@@ -24,7 +24,7 @@ export function Layout({
           <div className="flex items-center gap-2 font-bold text-xl mr-6">
             <Link href="/" className="flex items-center gap-2">
               <Code className="h-6 w-6 text-green-600" />
-              <span>CodeLeaf</span>
+              <span>CodeLeap</span>
             </Link>
           </div>
           <MainNav />
@@ -45,7 +45,7 @@ export function Layout({
       <footer className="border-t py-6">
         <div className="container flex flex-col gap-4 mx-auto md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-muted-foreground">
-            © 2025 CodeLeaf. All rights reserved.
+            © 2025 CodeLeap. All rights reserved.
           </p>
           <nav className="flex gap-4 text-sm text-muted-foreground">
             <Link href="#">Terms</Link>

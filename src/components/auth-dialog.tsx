@@ -25,7 +25,7 @@ export function AuthDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Welcome to CodeLeaf</DialogTitle>
+          <DialogTitle>Welcome to CodeLeap</DialogTitle>
           <DialogDescription>
             Sign in or create an account to start your learning journey.
           </DialogDescription>
